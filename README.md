@@ -5,8 +5,8 @@ Firefox will be running. You can also access qBT through it's web UI if
 you don't have access to a system running X, but even WSL2 works with
 Xpra.
 
-The image is based on `linuxserver/qbittorrent`. Only Xpra, Firefox and
-the normal, non-nox, qBittorrent client are added on to of the base.
+The image is based on [linuxserver/qbittorrent]. Only Xpra, Firefox and
+the normal, non-nox, qBittorrent client are added to the base image.
 
 ## Build image
 
@@ -62,7 +62,6 @@ Connect to the server with:
         --desktop-scaling=off \
         --speaker=disabled \
         --microphone=disabled
-
 
 [linuxserver/qbittorrent]: https://github.com/linuxserver/docker-qbittorrent
 [Xpra download]: https://github.com/Xpra-org/xpra/wiki/Download
