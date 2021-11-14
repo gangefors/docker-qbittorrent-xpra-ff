@@ -18,13 +18,16 @@ See [linuxserver/qbittorrent] for the base env. vars.
 
 This image adds the following env. vars:
 
-- `XPRA_PORT`, default: 3388
+- `XPRA_PORT` default: 3388
+
   This is the port Xpra server will listen on. This port needs to be published.
 
-- `DISPLAY`, default: 10
+- `DISPLAY` default: 10
+
   This is the display that Xpra will use. Must be >= 10.
 
-- `FIX_CERT_ISSUES`, default: unset
+- `FIX_CERT_ISSUES` default: unset
+
   If the tracker still haven't upgraded their certificates you can
   lower the TLS protocol and cipher for compatibility. Set it to any
   value to enable.
@@ -45,6 +48,7 @@ This image adds the following env. vars:
         -e FIX_CERT_ISSUES=y \
         -p 3388:3388 \
         -v $HOME/.config/qbt:/config \
+        -v $HOME/Downloads:/downloads \
         gangefors/qbt
 
 ## Connect to Xpra
