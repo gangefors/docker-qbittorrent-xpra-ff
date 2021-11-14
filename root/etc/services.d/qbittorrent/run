@@ -1,0 +1,8 @@
+#!/usr/bin/with-contenv bash
+
+DISPLAY=${DISPLAY:-10}
+export DISPLAY=":${DISPLAY}"
+WEBUI_PORT=${WEBUI_PORT:-8080}
+
+exec s6-setuidgid abc /usr/bin/qbittorrent \
+	--no-splash --webui-port="${WEBUI_PORT}"

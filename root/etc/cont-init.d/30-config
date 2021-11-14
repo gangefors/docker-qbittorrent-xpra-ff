@@ -1,0 +1,33 @@
+#!/usr/bin/with-contenv bash
+
+# assert config folders exist
+mkdir -p /config/qBittorrent
+
+# copy default config if none exist
+[[ ! -e /config/qBittorrent/qBittorrent.conf ]] && \
+	cp /defaults/qBittorrent.conf /config/qBittorrent/qBittorrent.conf
+
+# v4.3.3 BT_backup migration
+[[ -d /config/data/qBittorrent/BT_backup/ ]] && \
+	mv /config/qBittorrent/BT_backup/ /config/qBittorrent/BT_backup.bak/ && \
+	mkdir /config/qBittorrent/BT_backup/ && \
+	cp -a /config/data/qBittorrent/BT_backup/. /config/qBittorrent/BT_backup/ && \
+	mv /config/data/qBittorrent/BT_backup/ /config/data/qBittorrent/BT_backup.old/
+
+# set permissions on config directory
+chown -R abc:abc \
+	/config
+
+# fix certificate issue with some trackers
+if [[ -n "${FIX_CERT_ISSUES}" ]];
+then
+	[[ ! -e /etc/ssl/openssl.cnf.orig ]] && \
+		cp /etc/ssl/openssl.cnf /etc/ssl/openssl.cnf.orig
+	if [[ ! $(grep -q 'openssl_conf = default_conf' /etc/ssl/openssl.cnf) ]];
+	then
+		echo "openssl_conf = default_conf" > /tmp/openssl.cnf
+		cat /etc/ssl/openssl.cnf.orig >> /tmp/openssl.cnf
+		cat /defaults/openssl-fix.cnf >> /tmp/openssl.cnf
+		mv /tmp/openssl.cnf /etc/ssl/openssl.cnf
+	fi
+fi

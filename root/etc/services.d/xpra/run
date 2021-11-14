@@ -1,0 +1,7 @@
+#!/usr/bin/with-contenv bash
+
+DISPLAY=${DISPLAY:-10}
+XPRA_PORT=${XPRA_PORT:-3388}
+
+exec s6-setuidgid abc /usr/bin/xpra \
+	start ":${DISPLAY}" --daemon=no --bind-tcp=0.0.0.0:"${XPRA_PORT}"

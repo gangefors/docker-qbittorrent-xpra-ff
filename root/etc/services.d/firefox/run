@@ -1,0 +1,6 @@
+#!/usr/bin/with-contenv bash
+
+DISPLAY=${DISPLAY:-10}
+export DISPLAY=":${DISPLAY}"
+
+exec s6-setuidgid abc /usr/bin/firefox
